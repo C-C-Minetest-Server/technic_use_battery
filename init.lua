@@ -25,6 +25,8 @@ end
 technic_use_battery.CHARGE_STEP = 12000 -- HV Power bank
 technic_use_battery.CHARGE_DTIME = 1
 
+local floor = math.floor
+
 local total_dtime = 0
 minetest.register_globalstep(function(dtime)
     total_dtime = total_dtime + dtime
@@ -62,7 +64,7 @@ minetest.register_globalstep(function(dtime)
 
         if charge_src and charge_src_chg ~= 0 and #charge_dests > 0 then
             -- Every item shares the charge step
-            local ACTUAL_CHG_STEP = technic_use_battery.CHARGE_STEP / #charge_dests
+            local ACTUAL_CHG_STEP = floor(technic_use_battery.CHARGE_STEP / #charge_dests)
             local src_stack = main[charge_src]
             for _, i in ipairs(charge_dests) do
                 local stack = main[i]
